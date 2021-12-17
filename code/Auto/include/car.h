@@ -42,7 +42,7 @@ class Car {
             }
             else{
             speed = Speed;
-            analogWrite(DCMotorspeedpin, speed);
+            
             }
         }
 
