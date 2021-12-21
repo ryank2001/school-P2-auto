@@ -1,4 +1,4 @@
-#include "Car.h"
+#include <car.h>
 #include <BluetoothSerial.h>
 
 /* Check if Bluetooth configurations are enabled in the SDK */
@@ -26,7 +26,17 @@ void setup() {
   Serial.begin(115200);
   SerialBT.begin();
   Serial.println("Bluetooth Started! Ready to pair...");
- 
+
+  delay(1000)
+ Serial.println("Kies hier welke handeling u wilt uitvoeren:0- automatic 
+  1 - sta still
+  2- rij recht naar voren
+  3- rij naar voren/stuur links
+  4- rij naar voren/ stuur rechts
+  5- rij recht naar achter
+  6- rij naar achter/stuur links
+  7- rij naar achter/ stuur rechts");
+  while(Serial.available() == 0)
   
 
 
@@ -46,29 +56,44 @@ void readdata(){
   }
 }
 
-void loop() {
-  readdata();
- 
-  if(vooruit == '1'){
-    Serial.print("i work");
-    car.DriveBackwards();
+  
+  int handeling = Serial.readString();
+Switch (handeling){
+ Case 1:
+ Break;
 
-  }
-  else if(achteruit == '1'){
-     car.DriveForward();
-  }
-  else{
-    car.StopDriving();
-  }
-  if (links == '1'){
-    car.SteeringWheelAngle(45);
-  }
-  else if(rechts == '1'){
-    car.SteeringWheelAngle(135);
-  }
-  else{
-    car.SteeringWheelAngle(90);
-  }
-  delay(500);
- 
+ Case 2:
+  car.DriveForward();
+  Break;
+
+  Case 3:
+  car.DriveForward();
+  car.SteeringWheelAngle(45);   
+  Break;
+
+  Case 4:
+  car.DriveForward();
+  car.SteeringWheelAngle(135);
+  Break;
+
+  Case 5:
+  car.DriveBackwards();
+  Break;
+
+  Case 6:
+  car.DriveBackwards();
+  car.SteeringWheelAngle(45);
+  Break;
+
+  Case 7:
+  car.DriveBackwards();
+  car.SteeringWheelAngle(135);
+  Break;
 }
+  
+
+  
+}
+  void loop(){
+  handeling();
+  }
