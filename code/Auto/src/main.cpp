@@ -24,76 +24,60 @@ char rechts;
 
 void setup() {
   Serial.begin(115200);
-  SerialBT.begin();
-  Serial.println("Bluetooth Started! Ready to pair...");
+  SerialBT.begin("ESP32test"); //Bluetooth device name
+  Serial.println("The device started, now you can pair it with bluetooth!");
 
-  delay(1000)
- Serial.println("Kies hier welke handeling u wilt uitvoeren:0- automatic 
-  1 - sta still
-  2- rij recht naar voren
-  3- rij naar voren/stuur links
-  4- rij naar voren/ stuur rechts
-  5- rij recht naar achter
-  6- rij naar achter/stuur links
-  7- rij naar achter/ stuur rechts");
-  while(Serial.available() == 0)
-  
-
-
-}
-
-
-void readdata(){
-  if (SerialBT.available())
-  {
-    aan = SerialBT.read();
-    vooruit = SerialBT.read();
-    achteruit = SerialBT.read();
-    links = SerialBT.read();
-    rechts = SerialBT.read();
-    char dump = SerialBT.read();
-    dump = SerialBT.read();
   }
-}
 
-  
-  int handeling = Serial.readString();
-Switch (handeling){
- Case 1:
- Break;
 
- Case 2:
+ void opdracht(){
+  if (SerialBT.available()) {
+    char handeling = SerialBT.read();
+
+  switch (handeling){
+  case '1':
+ break;
+
+ case '2':
   car.DriveForward();
-  Break;
+  car.SteeringWheelAngle(90);  
+  break;
 
-  Case 3:
+  case '3':
   car.DriveForward();
   car.SteeringWheelAngle(45);   
-  Break;
+  break;
 
-  Case 4:
+  case '4':
   car.DriveForward();
   car.SteeringWheelAngle(135);
-  Break;
+  break;
 
-  Case 5:
+  case '5':
   car.DriveBackwards();
-  Break;
+  car.SteeringWheelAngle(90);  
+  break;
 
-  Case 6:
+  case '6':
   car.DriveBackwards();
   car.SteeringWheelAngle(45);
-  Break;
-
-  Case 7:
+  break;
+  
+  case '7':
   car.DriveBackwards();
   car.SteeringWheelAngle(135);
-  Break;
-}
-  
-
-  
-}
-  void loop(){
-  handeling();
+  break;
   }
+  }
+  
+  
+  
+  
+ 
+ }
+  void loop(){
+  opdracht();
+  }
+  
+  
+  
