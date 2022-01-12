@@ -32,15 +32,15 @@ class Car {
 
         void driveForward(){
             digitalWrite(DCmotorpinL1, HIGH);
-            digitalWrite(DCmotorpinR1, HIGH);
-            digitalWrite(DCmotorpinL2, LOW);
+            digitalWrite(DCmotorpinR1, LOW);
+            digitalWrite(DCmotorpinL2, HIGH);
             digitalWrite(DCmotorpinR2, LOW);
         }
 
         void drivebackward(){
             digitalWrite(DCmotorpinL1, LOW);
-            digitalWrite(DCmotorpinR1, LOW);
-            digitalWrite(DCmotorpinL2, HIGH);
+            digitalWrite(DCmotorpinR1, HIGH);
+            digitalWrite(DCmotorpinL2, LOW);
             digitalWrite(DCmotorpinR2, HIGH);
         }
 
