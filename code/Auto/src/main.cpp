@@ -4,16 +4,17 @@
 #include <automaticdriving.h>
 
 
-#define motorpinL1 26
-#define motorpinL2 27
-#define motorpinR1 14
-#define motorpinR2 12
+#define motorpinL1 33
+#define motorpinL2 23
+#define motorpinR1 32
+#define motorpinR2 22
 
 
 Car car = Car(motorpinL1,motorpinL2, motorpinR1, motorpinR2);
-Ultrasoon ultrasoonlinks = Ultrasoon(25,33);
+Ultrasoon ultrasoonlinks = Ultrasoon(26,25);
 Ultrasoon ultrasoonrechts = Ultrasoon(19,18);
 Ultrasoon ultrasoonvoor = Ultrasoon(5,17);
+HallSensor HallSensorl = HallSensor(36);
 
 
 void manualdriving(){
@@ -38,9 +39,18 @@ void manualdriving(){
 void automaticDriving(){
   if (ultrasoonvoor.read() <=35 ){
     car.turnright();
-    delay(1000);
+    delay(1150);
     
 
+  }
+  if(ultrasoonlinks.read() <= 15){
+
+    car.turnright();
+    delay(1150);
+  }
+  if(ultrasoonrechts.read() <=15){
+    car.turnleft();
+    delay(1150);
   }
   else{
     car.driveForward();
@@ -57,7 +67,8 @@ void setup(){
 
 void loop(){
  webserver();
- if (drivestate == "DONT FORGET"){
+ 
+ if (drivestate == "manual"){
    manualdriving();
  }
  else{

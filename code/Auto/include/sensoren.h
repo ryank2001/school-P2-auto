@@ -29,3 +29,53 @@ class Ultrasoon{
 
 
 };
+
+class HallSensor{
+    private:
+        int sensorpin;
+
+    public:
+        HallSensor(int Sensorpin){
+            sensorpin = Sensorpin;
+
+            pinMode(sensorpin, INPUT);
+        }
+
+        boolean read(){
+            int waarde = analogRead(sensorpin);
+            Serial.println(waarde);
+            if(waarde < 2628 || waarde > 2735){
+                Serial.print("true ");
+            }
+            else{
+                Serial.print("false ");
+            }
+            
+            return true;
+        }
+
+
+};
+
+class IRSensor{
+    private:
+        int sensorpin;
+
+    public:
+        IRSensor(int Sensorpin){
+            sensorpin = Sensorpin;
+            pinMode(sensorpin, OUTPUT);
+
+    }
+
+  boolean read(){
+        int waarde = digitalRead(sensorpin);
+        Serial.print(waarde);
+        return waarde;
+
+
+    }
+
+
+
+};
