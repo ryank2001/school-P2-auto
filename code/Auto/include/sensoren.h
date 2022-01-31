@@ -1,3 +1,5 @@
+
+
 class Ultrasoon{
     private:
         int trigPin;
@@ -20,8 +22,9 @@ class Ultrasoon{
             long int dur = pulseIn(echoPin, HIGH); 
             long int dist = dur / 58.2; 
             
-
+             Serial.println(dist);
             return dist;
+           
 
         }
 
@@ -42,16 +45,10 @@ class HallSensor{
         }
 
         boolean read(){
-            int waarde = analogRead(sensorpin);
-            Serial.println(waarde);
-            if(waarde < 2628 || waarde > 2735){
-                Serial.print("true ");
-            }
-            else{
-                Serial.print("false ");
-            }
+            int waarde = digitalRead(sensorpin);
+           
             
-            return true;
+            return waarde;
         }
 
 
@@ -64,7 +61,7 @@ class IRSensor{
     public:
         IRSensor(int Sensorpin){
             sensorpin = Sensorpin;
-            pinMode(sensorpin, OUTPUT);
+            pinMode(sensorpin, INPUT);
 
     }
 
@@ -79,3 +76,4 @@ class IRSensor{
 
 
 };
+
