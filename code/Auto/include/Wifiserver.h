@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-const char* ssid = "VRV9517567E59";
-const char* password = "3naNqtr9f7V4";
+const char* ssid = "Tesla IoT";
+const char* password = "fsL6HgjN";
 WiFiServer server(80);
 
 unsigned long currentTime = millis();
@@ -23,7 +23,7 @@ void serverSetup(){
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
+    delay(500);
     Serial.print(".");
   }
 

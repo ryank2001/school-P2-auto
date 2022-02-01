@@ -1,14 +1,25 @@
 #include <car.h>
 #include <sensoren.h>
 #include <Wifiserver.h>
-#include <automaticdriving.h>
 
 
-#define motorpinL1 26
-#define motorpinL2 27
-#define motorpinR1 14
-#define motorpinR2 12
+
+
+#define motorpinL1 33
+#define motorpinL2 23
+#define motorpinR1 32
+#define motorpinR2 22
+
+
+
 Car car = Car(motorpinL1,motorpinL2, motorpinR1, motorpinR2);
+Ultrasoon ultrasoonlinks = Ultrasoon(26,25);
+Ultrasoon ultrasoonrechts = Ultrasoon(19,18);
+Ultrasoon ultrasoonvoor = Ultrasoon(5,17);
+HallSensor HallSensorLinks = HallSensor(36);
+//HallSensor HallSensorRechts = HallSensor();
+IRSensor IRSensorlinks = IRSensor(14);
+IRSensor IRSensorrechts = IRSensor(12);
 
 
 void manualdriving(){
@@ -29,10 +40,84 @@ void manualdriving(){
   }
 }
 
+String LineTracking = "rechts";
 
-void automaticDriving(){
+//Dit is de functie voor het detecteren van het magnetische veld, als deze gedecteerd wordt stop de ACM.
+void MagneetDetectie(){
+    if(HallSensorLinks.read()){
+        car.standStill();
+        delay(3500);
+        
+    }
+}
+
+
+//Dit is de functie  voor detectie en het registreren en verwerken van tunnels
+void ObstakelDetectie(){
+  
+       
+   
+   
+   // Hierin staat aan welke kant de ACM standaard rijdt, zodra deze een obstakel detecteert gaat hij naar de andere kant en rijdt verder.
+    if(ultrasoonvoor.read() <= 20){
+            car.turnleft();
+            delay(500);
+            car.driveForward();
+            delay(500);
+        }
+
+        
+    }
+
+
+
+void LijnDetectie(){
+if(LineTracking == "rechts"){
+    for (int i = 0; i < 200; i++)
+    {   
+      
+        if(IRSensorrechts.read()){
+            car.turnleft();
+        }
+        else if(IRSensorlinks.read()){
+            car.turnright();
+        }
+       
+        
+        else{
+            car.driveForward();
+        }
+        delay(5);
+    }
+    for (int i = 0; i < 45; i++)
+    {
+        
+        if(IRSensorrechts.read()){
+            break;
+        }
+
+        
+        else if(ultrasoonrechts.read() <= 5){
+            car.driveForward();
+            delay(5);
+            car.turnleft();
+           
+        }
+        
+        else{
+            car.turnright();
+        }
+        delay(5);
+    }
+}
+
+
+
 
 }
+
+
+
 
 
 void setup(){
@@ -43,12 +128,16 @@ void setup(){
 
 
 void loop(){
- webserver();
+
+webserver();
+ 
  if (drivestate == "manual"){
    manualdriving();
  }
  else{
-   automaticDriving();
+   MagneetDetectie();
+   ObstakelDetectie();
+   LijnDetectie(); 
  }
  
 }
