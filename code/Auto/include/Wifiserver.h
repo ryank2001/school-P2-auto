@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-const char* ssid = "Tesla IoT";
-const char* password = "fsL6HgjN";
+const char* ssid = "Tesla IoT"; //adres van het wifinetwerk
+const char* password = "fsL6HgjN";  //Wachtwoord van het wifinetwerk
 WiFiServer server(80);
 
 unsigned long currentTime = millis();

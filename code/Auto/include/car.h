@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 
-
+//Class voor het manouveren van de auto
 class Car {
     private:
         int DCmotorpinL1;    //eerste pin waaraan de DCmotoren van de linker kant op worden aangestuurd.
@@ -15,6 +15,7 @@ class Car {
 
     public:
         
+        //Constructor voor de auto class waarin alle pinnen in de juiste modes worden gezet
         Car(int DCMotorpinL1, int DCMotorpinL2, int DCMotorpinR1 ,int DCMotorpinR2){
             DCmotorpinL1 = DCMotorpinL1;
             DCmotorpinL2 = DCMotorpinL2;
@@ -30,6 +31,8 @@ class Car {
         
         }
 
+
+        //functie voor het vooruit rijden van de auto
         void driveForward(){
             digitalWrite(DCmotorpinL1, HIGH);
             digitalWrite(DCmotorpinR1, LOW);
@@ -37,6 +40,7 @@ class Car {
             digitalWrite(DCmotorpinR2, LOW);
         }
 
+        //functie voor het achteruit rijden van de auto
         void drivebackward(){
             digitalWrite(DCmotorpinL1, LOW);
             digitalWrite(DCmotorpinR1, HIGH);
@@ -44,6 +48,7 @@ class Car {
             digitalWrite(DCmotorpinR2, HIGH);
         }
 
+        //functie voor het naar links laten sturen van de auto
         void turnleft(){
             digitalWrite(DCmotorpinL1, LOW);
             digitalWrite(DCmotorpinR1, HIGH);
@@ -51,6 +56,7 @@ class Car {
             digitalWrite(DCmotorpinR2, LOW);
         }
 
+        //functie voor het naar rechts laten sturen van de auto
         void turnright(){
             digitalWrite(DCmotorpinL1, HIGH);
             digitalWrite(DCmotorpinR1, LOW);
@@ -58,6 +64,7 @@ class Car {
             digitalWrite(DCmotorpinR2, HIGH);
         }
 
+        //functie om de auto still te laten staan
         void standStill(){
             digitalWrite(DCmotorpinL1, LOW);
             digitalWrite(DCmotorpinR1, LOW);
