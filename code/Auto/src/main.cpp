@@ -63,7 +63,7 @@ void ObstakelDetectie(){
             car.turnleft();
             delay(500);
             car.driveForward();
-            delay(500);
+            delay(800);
         }
 
         
@@ -73,15 +73,28 @@ void ObstakelDetectie(){
 
 void LijnDetectie(){
 if(LineTracking == "rechts"){
-    for (int i = 0; i < 120; i++)
+    for (int i = 0; i < 90; i++)
     {   
       
         if(IRSensorrechts.read()){
             car.turnleft();
+            delay(40);
         }
         else if(IRSensorlinks.read()){
             car.turnright();
-            delay(30);
+            delay(50);
+        }
+        else if(ultrasoonrechts.read() <= 5){
+            car.driveForward();
+            delay(5);
+            car.turnleft();
+           
+        }
+        else if(ultrasoonvoor.read() <= 20){
+            car.turnleft();
+            delay(700);
+            car.driveForward();
+            delay(800);
         }
        
         
@@ -89,8 +102,9 @@ if(LineTracking == "rechts"){
             car.driveForward();
         }
         delay(5);
+        
     }
-    for (int i = 0; i < 25; i++)
+    for (int i = 0; i < 20; i++)
     {
         
         if(IRSensorrechts.read()){
@@ -137,7 +151,7 @@ webserver();
  }
  else{
    MagneetDetectie();
-   //bstakelDetectie();
+   
    LijnDetectie(); 
  }
  
